@@ -1,0 +1,3 @@
+username: niklasgrawe_db_user
+pw: tgLJLzMDB3pAtZTb
+connection pw: bl7okWDxZT7I0Lx1

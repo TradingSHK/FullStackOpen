@@ -10,7 +10,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [nameToLookFor, setNameToLookFor] = useState('')
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState(null)
   const [isError, setIsError] = useState(false)
 
   useEffect(() => {
@@ -25,21 +25,13 @@ const App = () => {
       name: newName,
       number: newNumber,
     }
-    const personExists = persons.some(person => person.name === personObject.name)
-    if(personExists) {
+    
+    const existingPerson = persons.find(person => person.name === personObject.name)
+    
+    if(existingPerson) {
       if(confirm(`${personObject.name} already added to phonebook, replace the old number with the new one?`)) {
-        entryService.getSingle(personObject.name).then(curEntry => {
-          if (!curEntry || !curEntry[0]) {
-            setIsError(true)
-            setMessage(`Person '${personObject.name}' was already removed from the server`)
-            setTimeout(() => {
-              setMessage(null)
-              setIsError(false)
-            }, 5000)
-            setPersons(persons.filter(p => p.name !== personObject.name))
-            return
-          }
-          entryService.update(curEntry[0]["id"], personObject).then(response => {
+        entryService.update(existingPerson.id, personObject)
+          .then(response => {
             setPersons(persons.map(p => p.id === response.id ? response : p))
             setMessage(`Updated ${personObject.name}'s phone number`)
             setTimeout(() => {
@@ -48,22 +40,15 @@ const App = () => {
             }, 5000)
             setNewName('')
             setNewNumber('')
-          }).catch(error => {
+          })
+          .catch(error => {
             setIsError(true)
-            setMessage(`Person '${personObject.name}' was already removed from the server`)
+            setMessage(error.response.data.error)
             setTimeout(() => {
               setMessage(null)
               setIsError(false)
             }, 5000)
           })
-        }).catch(error => {
-          setIsError(true)
-          setMessage(`Error retrieving person '${personObject.name}'`)
-          setTimeout(() => {
-            setMessage(null)
-            setIsError(false)
-          }, 5000)
-        })
       }
     }
     else {
@@ -75,7 +60,7 @@ const App = () => {
         }, 5000)
       }).catch(error => {
         setIsError(true)
-        setMessage(`Person '${personObject.name}' was already removed from the server`)
+        setMessage(error.response.data.error)
         setTimeout(() => {
           setMessage(null)
           setIsError(false)
