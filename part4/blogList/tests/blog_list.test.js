@@ -157,6 +157,21 @@ test('delete a blog', async () => {
     assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length - 1)
 })
 
+test('delete a blog when authorization header uses lowercase bearer', async () => {
+    const blogsAtStart = await helper.blogsInDb()
+    const blogToDelete = blogsAtStart[0]
+
+    await api
+    .delete(`/api/blogs/${blogToDelete.id}`)
+    .set('authorization', `bearer ${token}`)
+    .expect(204)
+
+    const blogsAtEnd = await helper.blogsInDb()
+    const ids = blogsAtEnd.map(blog => blog.id)
+    assert(!ids.includes(blogToDelete.id))
+    assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length - 1)
+})
+
 test('update a blog', async() =>  {
     const blogsAtStart = await helper.blogsInDb()
     const blogToUpdate = blogsAtStart[0]

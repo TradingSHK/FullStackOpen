@@ -1,11 +1,6 @@
-playground
-.env
-node_modules
-notesApp
-.vscode
-E2E_tests/
 
 # Playwright
+node_modules/
 /test-results/
 /playwright-report/
 /blob-report/

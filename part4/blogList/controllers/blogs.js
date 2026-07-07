@@ -39,7 +39,7 @@ blogsRouter.post('/', userExtractor, async (request, response) => {
     response.status(201).json(savedBlog)
 })
 
-blogsRouter.delete('/:id', userExtractor, async (request, response) => {
+blogsRouter.delete('/:id', userExtractor, async (request, response) => {  
     if(!request.user) {
         return response.status(401).json({ error: 'token missing' })
     }
