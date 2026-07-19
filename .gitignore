@@ -4,10 +4,13 @@ node_modules
 notesApp
 .vscode
 E2E_tests/
-
+zustand-notes
 # Playwright
 /test-results/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+blog_tests/
+context-counter/
+query-notes/
