@@ -1,0 +1,10 @@
+PUT http://localhost:3001/api/blogs/6a49706ecbde870fcb4ffedc/comments
+Content-Type: application/json
+
+{
+    "title": "Low likes blog",
+    "author": "Playwright",
+    "url": "playwright.org",
+    "likes": 17,
+    "comment": "This is a Test"
+}

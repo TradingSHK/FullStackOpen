@@ -1,16 +1,24 @@
-import { Button, Card, CardContent, Stack, Typography } from '@mui/material'
+import { Button, Card, CardContent, Stack, TextField, Typography } from '@mui/material'
 import { useNavigate } from 'react-router'
 import { useBlogActions } from '../blogStore'
 
 const Blog = ({ blog, currentUser }) => {
   const navigate = useNavigate()
-  const { incLikes, deleteOne } = useBlogActions()
+  const { incLikes, deleteOne, addComment } = useBlogActions()
 
   const canRemove = currentUser && currentUser.username === blog.user?.username
 
   if (!blog) {
     return <div>Blog not found</div>
   }
+  
+  const addCommentToBlog = async (e) =>  {
+    e.preventDefault()
+    const comment = document.getElementById("comment").value   
+    await addComment(blog.id, comment)
+    document.getElementById("comment").value = ""
+  }
+  
 
   return (
     <Card sx={{ mb: 1.5, borderRadius: 2, boxShadow: 2, bgcolor: 'background.paper' }}>
@@ -42,6 +50,20 @@ const Blog = ({ blog, currentUser }) => {
               like · {blog.likes}
             </Button>
           </Stack>
+          <p>comments</p>
+          <form name="comment" onSubmit={addCommentToBlog}>
+            <TextField
+              label="add a comment"
+              id="comment"
+            />
+            <br/>
+              <Button type="submit" variant="contained" style={{ marginTop: 10 }}>Add comment</Button>
+          </form>
+          <ul>
+            {blog.comments.map(comment => (
+              <li key={Math.random()*10}>{comment}</li>
+            ))}
+          </ul>
         </Stack>
       </CardContent>
     </Card>

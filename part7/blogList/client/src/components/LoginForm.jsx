@@ -5,8 +5,7 @@ import { useSuccessNotificationActions, useErrorNotificationActions } from '../n
 
 
 const LoginForm = () => {
-  const user = useUser()
-  const { login, logout, setUsername, setPassword } = useUserActions()
+  const { login, setUsername, setPassword } = useUserActions()
   const navigate = useNavigate() 
   const { setSuccessMessage } = useSuccessNotificationActions()
   const { setErrorMessage } = useErrorNotificationActions()
@@ -18,8 +17,8 @@ const LoginForm = () => {
     setUsername(username)
     setPassword(password)
     try {
-      await login()
-      setSuccessMessage(`Welcome ${user.name}!`)
+      const loggedUser = await login()
+      setSuccessMessage(`Welcome ${loggedUser.name}!`)
     } 
     catch (exception) {
       console.log(exception);

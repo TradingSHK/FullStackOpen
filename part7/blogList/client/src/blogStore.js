@@ -21,6 +21,11 @@ export const useBlogStore = create((set, get) => ({
             const blog = get().blogs.find(a => a.id === id)
             const updated = await blogService.update(id, {...blog, likes: blog.likes + 1 })
             set(state => ({ blogs: state.blogs.map(a => a.id === id ? updated : a)}))
+        },
+        addComment: async(id, comment) => {           
+            const blog = get().blogs.find(a => a.id === id)
+            const updated = await blogService.addComment(id, blog, comment)            
+            set(state => ({blogs: state.blogs.map(a => a.id === id ? updated : a)}))
         }
     }
 }))

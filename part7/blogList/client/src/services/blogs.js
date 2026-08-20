@@ -43,4 +43,22 @@ const remove = async (id) => {
   return response.data
 }
 
-export default { getAll, create, setToken, clearToken, update, remove }
+const addComment = async(id, existingObject, comment) => {
+  const config = {
+    headers: { authorization: token }
+  }
+  
+  const payload = {
+    author: existingObject.author,
+    title: existingObject.title,
+    url: existingObject.url,
+    likes: existingObject.likes,
+    comment: comment
+  }
+
+  const url = baseUrl.concat(`/${id}/comments`)
+  const response = await axios.put(url, payload, config)
+  return response.data
+}
+
+export default { getAll, create, setToken, clearToken, update, remove, addComment }

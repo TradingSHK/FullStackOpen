@@ -16,12 +16,16 @@ import { Container, AppBar, Toolbar, Button } from '@mui/material'
 import ErrorBoundary from './components/ErrorBoundary'
 import { useSuccessNotification, useErrorNotification, useSuccessNotificationActions, useErrorNotificationActions } from './notificationStore'
 import { useBlogActions, useBlogs } from './blogStore'
-import { useUser, useUserActions } from './userStore'
+import { useUser, useUserActions, useUsers } from './userStore'
+import persistentUserService from './services/persistentUser'
+import UserList from './components/UserList'
+import UserDetail from './components/UserDetail'
 
 const App = () => {
   const blogs = useBlogs()
   const user = useUser()
-  const { setUser, logout } = useUserActions()
+  const users = useUsers()
+  const { setUser, logout, getUsers } = useUserActions()
   const navigate = useNavigate()
 
   const successMessage = useSuccessNotification()
@@ -31,7 +35,7 @@ const App = () => {
   const { initialize } = useBlogActions()
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
+    const loggedUserJSON = persistentUserService.getUser()
     if (loggedUserJSON) {
       const userData = JSON.parse(loggedUserJSON)
       setUser(userData)
@@ -41,7 +45,8 @@ const App = () => {
 
   useEffect(() => {
     initialize()
-  },[initialize])
+    getUsers()
+  },[initialize, getUsers])
 
   const padding = {
     padding: 5
@@ -53,9 +58,14 @@ const App = () => {
       
       <AppBar position="static">
         <Toolbar>
-          <Button color="inherit" component={Link} to="/" sx={hoverStyle}>notes</Button>
-          <Button color="inherit" component={Link} to="/create" sx={hoverStyle}>new note</Button>
-          <Button color="inherit" component={Link} to="/login" sx={hoverStyle}>login</Button>
+          <Button color="inherit" component={Link} to="/" sx={hoverStyle}>Blogs</Button>
+          <Button color="inherit" component={Link} to="/users" sx={hoverStyle}>Users</Button>
+          <Button color="inherit" component={Link} to="/create" sx={hoverStyle}>New Blog</Button>
+          {user ? (
+            <Button color="inherit" onClick={logout} sx={hoverStyle}>Logout</Button>
+          ) : (
+            <Button color="inherit" component={Link} to="/login" sx={hoverStyle}>Login</Button>
+          )}
         </Toolbar>
       </AppBar>
       <ErrorBoundary>
@@ -75,6 +85,12 @@ const App = () => {
           <Route path="/login" element={
             <LoginForm/>
           } />
+          <Route path="/users" element={
+            <UserList/>
+          }/>
+          <Route path="/users/:id" element = {
+            <UserDetail users={users}/>
+          }/>
           <Route path="*" element={
               <div ref={() => { 
                 throw new Error("404: The page you requested could not be found."); 
