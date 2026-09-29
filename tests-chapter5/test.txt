@@ -1,0 +1,225 @@
+
+> e2e-tests@1.0.0 test
+> playwright test
+
+
+
+Running 16 tests using 1 worker
+
+[1A[2K[1/16] [chromium] › tests/library.spec.js:10:3 › Library app › front page shows authors by default
+[1A[2K[2/16] [chromium] › tests/library.spec.js:17:3 › Library app › books page shows all books
+[1A[2K[3/16] [chromium] › tests/library.spec.js:26:5 › Library app › Login › login button is shown when not logged in
+[1A[2K[4/16] [chromium] › tests/library.spec.js:30:5 › Library app › Login › add book button is not shown when not logged in
+[1A[2K[5/16] [chromium] › tests/library.spec.js:38:5 › Library app › Login › recommend button is not shown when not logged in
+[1A[2K[6/16] [chromium] › tests/library.spec.js:46:5 › Library app › Login › logout button is not shown when not logged in
+[1A[2K[7/16] [chromium] › tests/library.spec.js:52:5 › Library app › Login › set birthyear form is not shown when not logged in
+[1A[2K[8/16] [chromium] › tests/library.spec.js:60:5 › Library app › Login › login succeeds with correct credentials
+[1A[2K[9/16] [chromium] › tests/library.spec.js:73:5 › Library app › Login › login fails with wrong password
+[1A[2K  1) [chromium] › tests/library.spec.js:73:5 › Library app › Login › login fails with wrong password 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText(/login failed/i)
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText(/login failed/i)[22m
+
+
+      74 |       await loginWith(page, 'testuser', 'wrong')
+      75 |
+    > 76 |       await expect(page.getByText(/login failed/i)).toBeVisible()
+         |                                                     ^
+      77 |     })
+      78 |   })
+      79 |
+        at /home/niklas/Dokumente/GitHub/FullStackOpen/part8/exercises/tests-chapter5/tests/library.spec.js:76:53
+
+    Error Context: test-results/library-Library-app-Login-login-fails-with-wrong-password-chromium/error-context.md
+
+
+[1A[2K[10/16] [chromium] › tests/library.spec.js:86:5 › Library app › When logged in › a new book can be added
+[1A[2K  2) [chromium] › tests/library.spec.js:86:5 › Library app › When logged in › a new book can be added 
+
+    [31mTest timeout of 10000ms exceeded.[39m
+
+    Error: locator.fill: Test timeout of 10000ms exceeded.
+    Call log:
+    [2m  - waiting for getByLabel('title')[22m
+
+
+       at helper.js:107
+
+      105 |   await page.getByRole('button', { name: 'add book' }).click()
+      106 |
+    > 107 |   await page.getByLabel('title').fill(title)
+          |                                  ^
+      108 |   await page.getByLabel('author').fill(author)
+      109 |   await page.getByLabel('published').fill(String(published))
+      110 |
+        at createBook (/home/niklas/Dokumente/GitHub/FullStackOpen/part8/exercises/tests-chapter5/tests/helper.js:107:34)
+        at /home/niklas/Dokumente/GitHub/FullStackOpen/part8/exercises/tests-chapter5/tests/library.spec.js:87:7
+
+    Error Context: test-results/library-Library-app-When-logged-in-a-new-book-can-be-added-chromium/error-context.md
+
+
+[1A[2K[11/16] [chromium] › tests/library.spec.js:99:5 › Library app › When logged in › author birth year can be updated
+[1A[2K  3) [chromium] › tests/library.spec.js:99:5 › Library app › When logged in › author birth year can be updated 
+
+    [31mTest timeout of 10000ms exceeded.[39m
+
+    Error: locator.selectOption: Test timeout of 10000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('select[name="name"]')[22m
+
+
+      103 |       ).toBeVisible()
+      104 |
+    > 105 |       await page.locator('select[name="name"]').selectOption('Martin Fowler')
+          |                                                 ^
+      106 |       await page.getByLabel('born').fill('1965')
+      107 |       await page.getByRole('button', { name: 'update author' }).click()
+      108 |
+        at /home/niklas/Dokumente/GitHub/FullStackOpen/part8/exercises/tests-chapter5/tests/library.spec.js:105:49
+
+    Error Context: test-results/library-Library-app-When-l-c4910-r-birth-year-can-be-updated-chromium/error-context.md
+
+
+[1A[2K[12/16] [chromium] › tests/library.spec.js:114:7 › Library app › When logged in › Genre filtering › genre filter buttons are shown
+[1A[2K  4) [chromium] › tests/library.spec.js:114:7 › Library app › When logged in › Genre filtering › genre filter buttons are shown 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('button', { name: 'refactoring' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('button', { name: 'refactoring' })[22m
+
+
+      117 |         await expect(
+      118 |           page.getByRole('button', { name: 'refactoring' }),
+    > 119 |         ).toBeVisible()
+          |           ^
+      120 |         await expect(
+      121 |           page.getByRole('button', { name: 'classic' }),
+      122 |         ).toBeVisible()
+        at /home/niklas/Dokumente/GitHub/FullStackOpen/part8/exercises/tests-chapter5/tests/library.spec.js:119:11
+
+    Error Context: test-results/library-Library-app-When-l-dfdab-re-filter-buttons-are-shown-chromium/error-context.md
+
+
+[1A[2K[13/16] [chromium] › tests/library.spec.js:128:7 › Library app › When logged in › Genre filtering › filtering by genre works
+[1A[2K  5) [chromium] › tests/library.spec.js:128:7 › Library app › When logged in › Genre filtering › filtering by genre works 
+
+    [31mTest timeout of 10000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 10000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: 'refactoring' })[22m
+
+
+      128 |       test('filtering by genre works', async ({ page }) => {
+      129 |         await page.getByRole('button', { name: 'books' }).click()
+    > 130 |         await page.getByRole('button', { name: 'refactoring' }).click()
+          |                                                                 ^
+      131 |
+      132 |         await expect(page.getByText('in genre')).toBeVisible()
+      133 |         await expect(page.getByText('Clean Code')).toBeVisible()
+        at /home/niklas/Dokumente/GitHub/FullStackOpen/part8/exercises/tests-chapter5/tests/library.spec.js:130:65
+
+    Error Context: test-results/library-Library-app-When-l-c17e7-ng-filtering-by-genre-works-chromium/error-context.md
+
+
+[1A[2K[14/16] [chromium] › tests/library.spec.js:139:7 › Library app › When logged in › Genre filtering › all genres button shows all books
+[1A[2K  6) [chromium] › tests/library.spec.js:139:7 › Library app › When logged in › Genre filtering › all genres button shows all books 
+
+    [31mTest timeout of 10000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 10000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: 'refactoring' })[22m
+
+
+      139 |       test('all genres button shows all books', async ({ page }) => {
+      140 |         await page.getByRole('button', { name: 'books' }).click()
+    > 141 |         await page.getByRole('button', { name: 'refactoring' }).click()
+          |                                                                 ^
+      142 |         await expect(page.getByText('Crime and punishment')).not.toBeVisible()
+      143 |
+      144 |         await page.getByRole('button', { name: 'all genres' }).click()
+        at /home/niklas/Dokumente/GitHub/FullStackOpen/part8/exercises/tests-chapter5/tests/library.spec.js:141:65
+
+    Error Context: test-results/library-Library-app-When-l-9b4b7-nres-button-shows-all-books-chromium/error-context.md
+
+
+[1A[2K[15/16] [chromium] › tests/library.spec.js:150:5 › Library app › When logged in › recommendations shows books in favorite genre
+[1A[2K  7) [chromium] › tests/library.spec.js:150:5 › Library app › When logged in › recommendations shows books in favorite genre 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('heading', { name: 'recommendations' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('heading', { name: 'recommendations' })[22m
+
+
+      153 |       await expect(
+      154 |         page.getByRole('heading', { name: 'recommendations' }),
+    > 155 |       ).toBeVisible()
+          |         ^
+      156 |       await expect(page.getByText('books in your favorite genre')).toBeVisible()
+      157 |       await expect(page.getByText('refactoring', { exact: true })).toBeVisible()
+      158 |       await expect(page.getByText('Clean Code')).toBeVisible()
+        at /home/niklas/Dokumente/GitHub/FullStackOpen/part8/exercises/tests-chapter5/tests/library.spec.js:155:9
+
+    Error Context: test-results/library-Library-app-When-l-2f9d3-ows-books-in-favorite-genre-chromium/error-context.md
+
+
+[1A[2K[16/16] [chromium] › tests/library.spec.js:162:5 › Library app › When logged in › new book appears in genre filtered view
+[1A[2K  8) [chromium] › tests/library.spec.js:162:5 › Library app › When logged in › new book appears in genre filtered view 
+
+    [31mTest timeout of 10000ms exceeded.[39m
+
+    Error: locator.fill: Test timeout of 10000ms exceeded.
+    Call log:
+    [2m  - waiting for getByLabel('title')[22m
+
+
+       at helper.js:107
+
+      105 |   await page.getByRole('button', { name: 'add book' }).click()
+      106 |
+    > 107 |   await page.getByLabel('title').fill(title)
+          |                                  ^
+      108 |   await page.getByLabel('author').fill(author)
+      109 |   await page.getByLabel('published').fill(String(published))
+      110 |
+        at createBook (/home/niklas/Dokumente/GitHub/FullStackOpen/part8/exercises/tests-chapter5/tests/helper.js:107:34)
+        at /home/niklas/Dokumente/GitHub/FullStackOpen/part8/exercises/tests-chapter5/tests/library.spec.js:163:7
+
+    Error Context: test-results/library-Library-app-When-l-5b230-ears-in-genre-filtered-view-chromium/error-context.md
+
+
+[1A[2K  8 failed
+    [chromium] › tests/library.spec.js:73:5 › Library app › Login › login fails with wrong password 
+    [chromium] › tests/library.spec.js:86:5 › Library app › When logged in › a new book can be added 
+    [chromium] › tests/library.spec.js:99:5 › Library app › When logged in › author birth year can be updated 
+    [chromium] › tests/library.spec.js:114:7 › Library app › When logged in › Genre filtering › genre filter buttons are shown 
+    [chromium] › tests/library.spec.js:128:7 › Library app › When logged in › Genre filtering › filtering by genre works 
+    [chromium] › tests/library.spec.js:139:7 › Library app › When logged in › Genre filtering › all genres button shows all books 
+    [chromium] › tests/library.spec.js:150:5 › Library app › When logged in › recommendations shows books in favorite genre 
+    [chromium] › tests/library.spec.js:162:5 › Library app › When logged in › new book appears in genre filtered view 
+  8 passed (1.3m)
+
+[36m  Serving HTML report at http://localhost:9323. Press Ctrl+C to quit.[39m
