@@ -54,17 +54,12 @@ const Books = ({ show, selectedGenre, handleGenreChange }) => {
 
       {genres.length > 0 && (
         <div>
-          <label>
-            Select genre:
-            <select value={selectedGenre} onChange={handleGenreChange}>
-              <option value={""}>all</option>
-              {genres.map((genre) => (
-                <option key={genre} value={genre}>
-                  {genre}
-                </option>
-              ))}
-            </select>
-          </label>
+          <button onClick={() => handleGenreChange('')}>all genres</button>
+          {genres.map((genre) => (
+            <button key={genre} onClick={() => handleGenreChange(genre)}>
+              {genre}
+            </button>
+          ))}
         </div>
       )}
     </div>

@@ -1,12 +1,11 @@
 import { useState } from 'react'
-import Select from 'react-select'
 import { CombinedGraphQLErrors } from "@apollo/client/errors";
 import { useMutation } from '@apollo/client/react'
 import { ALL_AUTHORS, EDIT_AUTHOR } from '../queries';
 import { AUTHORUPDATEERROR } from '../const';
 
 const SetBirthyear = ({ allAuthors, setError }) => {
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedAuthor, setSelectedAuthor] = useState('');
   const [born, setBorn] = useState('')
 
   const [ editAuthor ] = useMutation(EDIT_AUTHOR, {
@@ -20,17 +19,10 @@ const SetBirthyear = ({ allAuthors, setError }) => {
     }
   }) 
 
-  const options = allAuthors.map((author) => {
-    return {
-      value: author.name,
-      label: author.name,
-    }
-  })
-
   const handleSubmit = (event) => {
     event.preventDefault()
-    editAuthor({ variables: { name: selectedOption.value, setBornTo: parseInt(born) }})
-    setSelectedOption(null)
+    editAuthor({ variables: { name: selectedAuthor, setBornTo: parseInt(born) }})
+    setSelectedAuthor('')
     setBorn('')
   }
 
@@ -38,16 +30,24 @@ const SetBirthyear = ({ allAuthors, setError }) => {
     <>
       <h3>Set birthyear</h3>
       <form onSubmit={handleSubmit}>
-        <Select
-          value={selectedOption}
-          onChange={setSelectedOption}
-          options={options}
-        />
-        { selectedOption &&
+        <label htmlFor="author-name">author</label>
+        <select
+          id="author-name"
+          name="name"
+          value={selectedAuthor}
+          onChange={({ target }) => setSelectedAuthor(target.value)}
+        >
+          <option value="">Select...</option>
+          {allAuthors.map((author) => (
+            <option key={author.id} value={author.name}>{author.name}</option>
+          ))}
+        </select>
+        { selectedAuthor &&
           <>
             <div>
-            born
+            <label htmlFor="author-born">born</label>
             <input
+              id="author-born"
               type="number"
               value={born}
               onChange={({ target }) => setBorn(target.value)}

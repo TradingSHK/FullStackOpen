@@ -33,11 +33,9 @@ const App = () => {
   })
 
   const handleNewBook = (book, client) => {
-    const author = book.author.name;
-    const title = book.title;
     updateBooks(client, book);
     updateAuthors(client, book);
-    setInfoMessage(`New book added: ${title} by ${author}`);
+    setInfoMessage('New book added');
     setTimeout(() => {
       setInfoMessage(null);
     }, 10000);
@@ -53,6 +51,7 @@ const App = () => {
   const handleLogin = (token) => {
     setToken(token);
     localStorage.setItem("app-user-token", token);
+    client.resetStore();
     setPage("authors");
   }
 
@@ -64,7 +63,7 @@ const App = () => {
   };
 
   const handleGenreChange = (event) => {
-    setSelectedGenre(event.target.value);
+    setSelectedGenre(event);
   };
 
   return (
@@ -85,6 +84,7 @@ const App = () => {
       </div>
       <Authors
         show={page === "authors"}
+        loggedIn={Boolean(token)}
         setError={notify}
       />
       <Books

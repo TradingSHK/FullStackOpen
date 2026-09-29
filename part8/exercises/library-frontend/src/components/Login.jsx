@@ -18,7 +18,7 @@ const Login = ({ show, setError, handleLogin }) => {
     onError: (error) => {
       let errorMessage = LOGINERROR;
       if (error instanceof CombinedGraphQLErrors) {
-        errorMessage = error.errors.map(e => e.message).join(', ')
+        errorMessage = `Login failed: ${error.errors.map(e => e.message).join(', ')}`
       }
       setError(errorMessage);
     },
@@ -37,15 +37,17 @@ const Login = ({ show, setError, handleLogin }) => {
     <div>
       <form onSubmit={handleSubmit}>
         <div>
-          username
+          <label htmlFor="username">username</label>
           <input
+            id="username"
             value={username}
             onChange={({ target }) => setUsername(target.value)}
           />
         </div>
         <div>
-          password
+          <label htmlFor="password">password</label>
           <input
+            id="password"
             type="password"
             value={password}
             onChange={({ target }) => setPassword(target.value)}
