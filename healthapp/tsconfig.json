@@ -9,8 +9,8 @@
 		],
 		"types": ["node"],
 
-		"rootDir": "../part9/healthapp/src",
-		"outDir": "../part9/healthapp/lib",
+		"rootDir": "src",
+		"outDir": "lib",
 
 		"strict": true,
 		"alwaysStrict": true,
@@ -36,7 +36,7 @@
 		"pretty": true
 	},
 	"include": [
-		"../part9/healthapp/typings/**/*",
-		"../part9/healthapp/src/**/*"
+		"typings/**/*",
+		"src/**/*"
 	]
 }
