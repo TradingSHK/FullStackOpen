@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"target": "es6",
+		"target": "esnext",
 		"module": "nodenext",
 		"moduleResolution": "nodenext",
 		"lib": [
@@ -26,6 +26,8 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noEmit": true,
+		"esModuleInterop": true,
+		"allowImportingTsExtensions": true,
 
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,

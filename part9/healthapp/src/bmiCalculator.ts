@@ -43,9 +43,13 @@ const calculateBmi = (height: number, weight: number): string => {
     }
 }
 
-try {
-    const {weight, height} = parseArguments(process.argv);
-    console.log(calculateBmi(height, weight));
-} catch (error: unknown) {
-    console.log(error)
+if (process.argv[1] === import.meta.filename) {
+    try {
+        const {weight, height} = parseArguments(process.argv);
+        console.log(calculateBmi(height, weight));
+    } catch (error: unknown) {
+        console.log(error)
+    }
 }
+
+export default calculateBmi

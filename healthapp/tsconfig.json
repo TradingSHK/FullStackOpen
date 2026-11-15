@@ -1,0 +1,42 @@
+{
+	"compilerOptions": {
+		"target": "esnext",
+		"module": "nodenext",
+		"moduleResolution": "nodenext",
+		"lib": [
+			"es2015",
+			"DOM"
+		],
+		"types": ["node"],
+
+		"rootDir": "../part9/healthapp/src",
+		"outDir": "../part9/healthapp/lib",
+
+		"strict": true,
+		"alwaysStrict": true,
+		"strictFunctionTypes": true,
+		"strictNullChecks": true,
+		"strictPropertyInitialization": true,
+
+		"forceConsistentCasingInFileNames": true,
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"allowImportingTsExtensions": true,
+
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"declaration": true,
+
+		"pretty": true
+	},
+	"include": [
+		"../part9/healthapp/typings/**/*",
+		"../part9/healthapp/src/**/*"
+	]
+}

@@ -8,6 +8,26 @@ interface ExerciseResult {
     average: number
 }
 
+interface ExerciseInputs {
+    exercises: number[],
+    trainingTarget: number
+}
+
+const parseArguments = (args: string[]): ExerciseInputs => {
+    if (args.length < 4) throw new Error('Not enough arguments'); 
+    
+    const argsWithoutDefaults = process.argv.slice(2)
+    if(argsWithoutDefaults.every((element) => !isNaN(Number(element))))
+        return {
+            trainingTarget: Number(argsWithoutDefaults[0]),
+            exercises: argsWithoutDefaults.slice(1).map((i) => Number(i))
+        }
+    else {
+        throw new Error('Provided values were not numbers!');
+    }
+}
+
+
 const calculateExercises = (exercises: number[], trainingTarget: number): ExerciseResult => {
     if (exercises.length === 0) {
         throw new Error("You have not specified any exercises!");
@@ -40,5 +60,13 @@ const calculateExercises = (exercises: number[], trainingTarget: number): Exerci
         average: average,
     }
 }
+if (process.argv[1] === import.meta.filename) {
+    try {
+        const {exercises, trainingTarget} = parseArguments(process.argv);
+        console.log(calculateExercises(exercises, trainingTarget));
+    } catch (error: unknown) {
+        console.log(error)
+    }
+}
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
+export default calculateExercises
