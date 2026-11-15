@@ -19,7 +19,7 @@ jobs:
     
     - name: Install healthapp dependencies
       working-directory: ./healthapp
-      run: npm install
+      run: npm install --legacy-peer-deps
     
     - name: Lint healthapp
       working-directory: ./healthapp
@@ -34,7 +34,7 @@ jobs:
     
     - name: Install test dependencies
       working-directory: ./healthapp-tests
-      run: npm install
+      run: npm install --legacy-peer-deps
     
     - name: Install Playwright browsers
       working-directory: ./healthapp-tests
