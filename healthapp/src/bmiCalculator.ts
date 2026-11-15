@@ -4,25 +4,29 @@ interface BmiValues {
 }
 
 const parseArguments = (args: string[]): BmiValues => {
-    if (args.length < 4) throw new Error('Not enough arguments');
-    if (args.length > 4) throw new Error('Too many arguments');
-    
-    if(!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
+    if (args.length < 4) {
+        throw new Error("Not enough arguments");
+    }
+    if (args.length > 4) {
+        throw new Error("Too many arguments");
+    }
+
+    if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
         return {
             height: Number(args[2]),
-            weight: Number(args[3])
-        }
+            weight: Number(args[3]),
+        };
     } else {
-        throw new Error('Provided values were not numbers!');
+        throw new Error("Provided values were not numbers!");
     }
-}
+};
 
-const calculateBmi = (height: number, weight: number): string => {    
+const calculateBmi = (height: number, weight: number): string => {
     if (height <= 0 || weight <= 0) {
         throw new Error("Both height and weight must be greater than 0");
     }
-    let heightInM = height / 100
-    let bmi = weight/(heightInM*heightInM)    
+    const heightInM = height / 100;
+    const bmi = weight / (heightInM * heightInM);
 
     if (bmi < 16) {
         return "Underweight (Severe thinness)";
@@ -41,15 +45,15 @@ const calculateBmi = (height: number, weight: number): string => {
     } else {
         return "Obese (Class III)";
     }
-}
+};
 
 if (process.argv[1] === import.meta.filename) {
     try {
-        const {weight, height} = parseArguments(process.argv);
+        const { weight, height } = parseArguments(process.argv);
         console.log(calculateBmi(height, weight));
     } catch (error: unknown) {
-        console.log(error)
+        console.log(error);
     }
 }
 
-export default calculateBmi
+export default calculateBmi;

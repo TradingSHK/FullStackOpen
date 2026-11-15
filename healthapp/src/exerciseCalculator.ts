@@ -5,7 +5,7 @@ interface ExerciseResult {
     rating: number,
     ratingDescription: string,
     target: number,
-    average: number
+    average: number;
 }
 
 interface ExerciseInputs {
@@ -14,18 +14,20 @@ interface ExerciseInputs {
 }
 
 const parseArguments = (args: string[]): ExerciseInputs => {
-    if (args.length < 4) throw new Error('Not enough arguments'); 
-    
-    const argsWithoutDefaults = process.argv.slice(2)
-    if(argsWithoutDefaults.every((element) => !isNaN(Number(element))))
+    if (args.length < 4) {
+        throw new Error("Not enough arguments");
+    }
+
+    const argsWithoutDefaults = process.argv.slice(2);
+    if (argsWithoutDefaults.every((element) => !isNaN(Number(element)))) {
         return {
             trainingTarget: Number(argsWithoutDefaults[0]),
-            exercises: argsWithoutDefaults.slice(1).map((i) => Number(i))
-        }
-    else {
-        throw new Error('Provided values were not numbers!');
+            exercises: argsWithoutDefaults.slice(1).map((i) => Number(i)),
+        };
+    } else {
+        throw new Error("Provided values were not numbers!");
     }
-}
+};
 
 
 const calculateExercises = (exercises: number[], trainingTarget: number): ExerciseResult => {
@@ -33,9 +35,8 @@ const calculateExercises = (exercises: number[], trainingTarget: number): Exerci
         throw new Error("You have not specified any exercises!");
     }
 
-    let sum = 0;
-    exercises.forEach(x => sum += x);
-    let average = sum / exercises.length;
+    const sum = exercises.reduce((total, exercise) => total + exercise, 0);
+    const average = sum / exercises.length;
 
     let rating = 0;
     let ratingDescriptionText = "";
@@ -49,24 +50,24 @@ const calculateExercises = (exercises: number[], trainingTarget: number): Exerci
         rating = 3;
         ratingDescriptionText = "Great job!";
     }
-    
+
     return {
         periodLength: exercises.length,
-        trainingDays: exercises.filter(exercise => exercise > 0).length,
+        trainingDays: exercises.filter((exercise) => exercise > 0).length,
         success: average > trainingTarget,
-        rating: rating,
+        rating,
         ratingDescription: ratingDescriptionText,
         target: trainingTarget,
-        average: average,
-    }
-}
+        average,
+    };
+};
 if (process.argv[1] === import.meta.filename) {
     try {
-        const {exercises, trainingTarget} = parseArguments(process.argv);
+        const { exercises, trainingTarget } = parseArguments(process.argv);
         console.log(calculateExercises(exercises, trainingTarget));
     } catch (error: unknown) {
-        console.log(error)
+        console.log(error);
     }
 }
 
-export default calculateExercises
+export default calculateExercises;
