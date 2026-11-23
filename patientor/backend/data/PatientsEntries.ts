@@ -43,4 +43,4 @@ const patients: Patient[] =
     }
 ];
 
-export default patients
+export default patients;

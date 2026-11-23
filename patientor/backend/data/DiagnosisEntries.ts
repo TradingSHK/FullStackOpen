@@ -1,4 +1,4 @@
-import type { Diagnosis } from '../src/types.ts'
+import type { Diagnosis } from '../src/types.ts';
 const diagnosis: Diagnosis[] = 
 [
   {
@@ -80,4 +80,4 @@ const diagnosis: Diagnosis[] =
   }
 ];
 
-export default diagnosis
+export default diagnosis;
