@@ -1,5 +1,5 @@
-import patients from "../../../../../patientor/backend/data/PatientsEntries.ts";
-import { type NonSSNPatient, type NewPatient, type Patient } from "../../../../../patientor/backend/src/types.ts";
+import patients from "../../data/PatientsEntries.ts";
+import { type NonSSNPatient, type NewPatient, type Patient } from "../types.ts";
 import { v1 as uuid } from 'uuid';
 
 const getPatients = (): NonSSNPatient[] => {
@@ -12,7 +12,7 @@ const getPatients = (): NonSSNPatient[] => {
     }));
 };
 
-const findById = (id: string): NonSSNPatient | undefined => {
+const findById = (id: string): Patient | undefined => {
     const patient = patients.find(p => p.id === id);
     return patient;
 };
