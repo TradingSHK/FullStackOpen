@@ -2,7 +2,7 @@ import { type Request, type Response, type NextFunction } from 'express';
 import { NewPatientSchema } from './types.ts';
 import { z } from 'zod';
 
-export const newDiaryParser = (req: Request, _res: Response, next: NextFunction) => {
+export const newPatientParser = (req: Request, _res: Response, next: NextFunction) => {
   try {
     NewPatientSchema.parse(req.body);
     next();
