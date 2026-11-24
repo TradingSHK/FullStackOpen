@@ -10,7 +10,7 @@ router.get("/", (_req, res: Response<NonSSNPatient[]>) => {
 });
 
 router.post("/", newPatientParser, (req: Request<unknown, unknown, NewPatient>, res: Response<Patient>)=> {
-    const addedEntry = patientService.addPatient(req.body)
+    const addedEntry = patientService.addPatient(req.body);
     res.json(addedEntry);
 });
 
